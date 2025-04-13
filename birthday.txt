@@ -1,0 +1,103 @@
+        @keyframes explode {
+            0% {
+                transform: translate(0, 100vh);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--randomX), var(--randomY)) scale(3);
+                opacity: 0;
+            }
+        }
+
+        .birthday-icon {
+            font-size: 2em;
+            margin: 10px;
+            color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>新的一岁准备好了吗！指甲油送来祝福！</h1>
+    </div>
+
+    <div class="message" id="typed-message"></div>
+
+    <div class="buttons">
+        <button class="btn" onclick="createFireworks()">嘎嘎嘎嘎</button>
+        <button class="btn" onclick="createFireworks()">生日快乐</button>
+    </div>
+
+    <div>
+        <span class="birthday-icon">🎂</span>
+        <span class="birthday-icon">🎉</span>
+        <span class="birthday-icon">🎁</span>
+    </div>
+
+    <script>
+        // 打印机效果
+        const message = `哈喽呀李卓麟，好像是我第一次给你写生日小作文。我想能在大学认识你是上天对我的款待，一开始真的被你e人开朗面具给骗到啦，在你觉得还不熟悉的时候就反复在边界蹦跶，多谢你的容忍哈哈哈。
+
+后来其实我也忘记是哪个节点了，也许是经常接同个任务，也许是成为了设计组的三分之一，也许是一起在民宿玩剧本杀。我也不知道你是在什么时候真正认可我进入good friends行列，但这也许就是命运的一部分。
+
+两个性格不同，接纳他人速度也不同的人在很多次相处下却慢慢熟悉，融洽，像两条希望跨出柏油路的斑马线突然在十字路口看见了彼此，选择在红绿灯下握手，周边人来人往，但时间仿佛永恒在了很多个捧腹大笑的瞬间。
+
+虽然你总是说自己最真实那面是绝对不会有人爱着的，但你展露给我们的很多面，对待他人下意识的动作，都是真诚美好的。无论你有多少面具，我从认识你开始接触到的李卓麟都是我所认为的真实，以后所见到的也都真真切切。
+
+用很浪漫的话说就是，谢谢我的生活有你的身影，谢谢这个不堪的世界还有你的存在。
+
+有很多很多的祝福想说，从最小的开始：
+- 我祝福你每天睡前都不会再觉得痛苦
+- 我祝福你每次做梦都有漫天星辰
+- 祝福你每次起床洗漱都神清气爽
+- 祝福你出门永远有最好的交通工具
+- 祝福你能看到很多沁人心脾的美景
+- 祝福你能听见许多悦耳的声音
+- 祝福你能时常和内心的自己情感共振与和解
+- 祝福你的所有愿望与心事都可以成真
+- 祝李卓麟新的一岁幸福健康平安快乐。`;
+
+        let i = 0;
+        const speed = 20;
+        function typeWriter() {
+            const messageElement = document.getElementById("typed-message");
+            if (i < message.length) {
+                messageElement.innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        // 双重确保DOM加载
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(typeWriter, 1000);
+        });
+
+        // 改进的烟花效果
+        function createFireworks() {
+            const colors = ['#ff6b6b', '#ffa502', '#ff7faa', '#e67e22'];
+            for (let i = 0; i < 50; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+
+                // 随机位置
+                const randomX = (Math.random() - 0.5) * 200;
+                const randomY = -Math.random() * 200 - 100;
+
+                firework.style.left = Math.random() * 100 + 'vw';
+                firework.style.setProperty('--randomX', randomX + 'px');
+                firework.style.setProperty('--randomY', randomY + 'px');
+                firework.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                document.body.appendChild(firework);
+
+                // 动画结束后移除元素
+                firework.addEventListener('animationend', function () {
+                    firework.remove();
+                });
+            }
+        }
+    </script>
+</body>
+</html>
